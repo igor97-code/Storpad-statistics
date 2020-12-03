@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import { connect } from 'react-redux' 
+import "./css/style.css" 
+import "./css/reset.css"
+import "./css/media.css"
+import Menu from "./components/menu"
+import Header from "./components/Header"
+import Content from './components/content/content'
+import Login from "./components/login/login"
 
-function App() {
+
+const groupContent = [
+  <Menu />,
+  <Header/>,
+  <Content/>
+];
+
+
+function App({ isAuth }) {
   return (
+    // eslint-disable-next-line react/jsx-filename-extension
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {isAuth ? groupContent : <Login/>}
     </div>
-  );
+  )
 }
 
-export default App;
+const mapStateToProps = (state) => state
+
+export default connect(mapStateToProps)(App)
